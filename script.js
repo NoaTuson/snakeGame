@@ -8,6 +8,19 @@ let isGameOver = false;
 let startingPosition = "left";
 let interval;
 let blueberryPosition;
+let points = 0;
+let timer = 0;
+
+let timerInterval = setInterval(() => {
+	timer++;
+	const date = new Date(timer * 1000);
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
+
+	document.querySelector(".timer").innerHTML = `${
+		minutes < 10 ? "0" + minutes : minutes
+	}: ${seconds < 10 ? "0" + seconds : seconds}`;
+}, 1000);
 
 let sound1 = new Audio("./pebble.ogg");
 let sound2 = new Audio("./Country_Blues.ogg");
@@ -138,6 +151,7 @@ function snakeMoves(currentDirection) {
 	snake.unshift(head);
 
 	if (blueberryPosition == head) {
+		document.querySelector(".counter").innerHTML = ++points;
 		sound1.play();
 		blueberry();
 	} else {
